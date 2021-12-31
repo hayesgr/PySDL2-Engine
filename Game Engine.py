@@ -49,7 +49,6 @@ class Game:
 
     def main_loop(self):
         load_content(self)
-        event = sdl2.SDL_Event()
         while self.run:
             event_handler(self)
             update(self)
