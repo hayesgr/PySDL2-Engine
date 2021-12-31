@@ -1,8 +1,9 @@
 import sdl2
 from sdl2 import rect
 import sdl2.ext
-from sdl2.surface import SDL_LoadBMP
+from sdl2.surface import *
 from sdl2.sdlimage import *
+from sdl2.sdlmixer import *
 from ctypes import *
 #The asset manager allows using store assets by their names
 #You can access assets by name or by index
@@ -17,6 +18,20 @@ class Texture:
         sdl2.SDL_DestroyTexture(self.image)
         return
 
+class Sound:
+    def __init__(self):
+        self.sound
+        return
+    def cleanup(self):
+        return
+
+class Music:
+    def __init__(self):
+        self.music
+        return
+    def cleanup(self):
+        return
+
 class Asset_Manager:
     def __init__(self,renderer):
         self.assets = []
@@ -29,17 +44,15 @@ class Asset_Manager:
 
     def cleanup(self):
         return
-        
+
     #images
     def load_image(self,name,file_name):
-        #self.assets.append((pygame.image.load("assets/" + file_name).convert_alpha()))
         s = "assets/" + file_name
         tex = sdl2.ext.load_image(s.encode())
-        #surf = sdl2.SDL_LoadBMP(s.encode())
         i = sdl2.SDL_CreateTextureFromSurface(self.renderer,tex)
         if not i:
             print ("Failed to load Image:",s)
-        #sdl2.SDL_FreeSurface(surf)
+        sdl2.SDL_FreeSurface(tex)
         tw = c_int()
         th = c_int()
         sdl2.SDL_QueryTexture(i,None,None,tw,th)
@@ -65,6 +78,7 @@ class Asset_Manager:
         self.images.pop(name)
         return
     #movies
+    """
     def load_movie(self,name,file_name):
         #need to change to SDL
         #self.assets.append((pygame.movie.Movie("assets/"+ file_name)))
@@ -86,7 +100,9 @@ class Asset_Manager:
         self.assets.pop(self.videos.get(name))
         self.videos.pop(name)
         return
+    """
     #sounds
+    """
     def load_sound(self,name,file_name):
         #Need to change to SDL
         #self.assets.append(pygame.mixer.Sound("assets/" + file_name))
@@ -108,7 +124,7 @@ class Asset_Manager:
         self.assets.pop(self.sounds.get(name))
         self.sounds.pop(name)
         return
-
+    """
     #pygame doesn't load music into an object just memory
     #So all that can be stored is the file name
     #That can be stored directly in the dictionary and doesn't need the asset array

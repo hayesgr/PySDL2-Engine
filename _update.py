@@ -21,10 +21,10 @@ def options_u(self):
 
 def play_u(self):
     t = self.gt.elapsed_time()
-    if self.fps_trap==10:
-        print("fps:",1000000/t)
-        self.fps_trap=0
-    self.fps_trap += 1
+    #if self.fps_trap==10:
+    #    print("fps:",1000000/t)
+    #    self.fps_trap=0
+    #self.fps_trap += 1
     self.gt.set_timer()
     for i in self.balls:
         i.update(self.width,self.height,t)
