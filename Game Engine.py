@@ -52,12 +52,6 @@ class Game:
         event = sdl2.SDL_Event()
         while self.run:
             event_handler(self)
-            #if sdl2.SDL_PollEvent(event) !=0:
-            #    if event.type == sdl2.SDL_QUIT:
-            #        self.run = 0
-            #    if event.type == sdl2.SDL_KEYDOWN:
-            #        if event.key.keysym.sym == sdl2.SDLK_ESCAPE:
-            #            self.run = 0
             update(self)
             render(self)
         cleanup(self)
