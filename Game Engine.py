@@ -10,7 +10,7 @@ from keyboard_handler import Keyboard_Handler
 from mouse_handler import Mouse_Handler
 from asset_manager import Asset_Manager
 from _profile import profile
-PROFILE = True          #Set to true to profile game, false to not profile game
+PROFILE = False          #Set to true to profile game, false to not profile game
 TITLE = "Game Engine"
 
 
