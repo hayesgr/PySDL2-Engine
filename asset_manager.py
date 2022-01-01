@@ -1,5 +1,6 @@
-import sdl2
-from sdl2 import rect
+from os import path
+import sys
+from sdl2 import *
 import sdl2.ext
 from sdl2.surface import *
 from sdl2.sdlimage import *
@@ -15,21 +16,7 @@ class Texture:
         self.rect = rect
         return
     def cleanup(self):
-        sdl2.SDL_DestroyTexture(self.image)
-        return
-
-class Sound:
-    def __init__(self):
-        self.sound
-        return
-    def cleanup(self):
-        return
-
-class Music:
-    def __init__(self):
-        self.music
-        return
-    def cleanup(self):
+        SDL_DestroyTexture(self.image)
         return
 
 class Asset_Manager:
@@ -43,20 +30,21 @@ class Asset_Manager:
         return
 
     def cleanup(self):
+
         return
 
     #images
     def load_image(self,name,file_name):
         s = "assets/" + file_name
         tex = sdl2.ext.load_image(s.encode())
-        i = sdl2.SDL_CreateTextureFromSurface(self.renderer,tex)
+        i = SDL_CreateTextureFromSurface(self.renderer,tex)
         if not i:
             print ("Failed to load Image:",s)
-        sdl2.SDL_FreeSurface(tex)
+        SDL_FreeSurface(tex)
         tw = c_int()
         th = c_int()
-        sdl2.SDL_QueryTexture(i,None,None,tw,th)
-        tr = sdl2.SDL_Rect(0,0,tw,th)
+        SDL_QueryTexture(i,None,None,tw,th)
+        tr = SDL_Rect(0,0,tw,th)
         t = Texture(i,tr)
         self.assets.append(t)
         index = len(self.assets)-1
@@ -77,35 +65,11 @@ class Asset_Manager:
         self.assets.pop(self.images.get(name))
         self.images.pop(name)
         return
-    #movies
-    """
-    def load_movie(self,name,file_name):
-        #need to change to SDL
-        #self.assets.append((pygame.movie.Movie("assets/"+ file_name)))
-        index = len(self.assets)-1
-        self.videos[name]=index
-        return index
-
-    def get_movie(self,name):
-        r = self.videos.get(name)
-        if r:
-            return self.assets[r]
-        print("Movie: " + name + "doesn't exist")
-        return
-
-    def movie_index(self,name):
-        return self.videos.get(name)    #will return Null if doesn't exist. Address out of range issue will usually occur
-
-    def remove_movie(self,name):
-        self.assets.pop(self.videos.get(name))
-        self.videos.pop(name)
-        return
-    """
+    
     #sounds
-    """
     def load_sound(self,name,file_name):
         #Need to change to SDL
-        #self.assets.append(pygame.mixer.Sound("assets/" + file_name))
+        self.assets.append(Mix_LoadWAV("assets/" + file_name))
         index = len(self.assets)-1
         self.sounds[name]=index
         return index
@@ -124,11 +88,57 @@ class Asset_Manager:
         self.assets.pop(self.sounds.get(name))
         self.sounds.pop(name)
         return
-    """
-    #pygame doesn't load music into an object just memory
-    #So all that can be stored is the file name
-    #That can be stored directly in the dictionary and doesn't need the asset array
-    #
 
+    def play_sound(self,name):
+        r = self.sounds.get(name)
+        if r:
+            Mix_PlayChannel(-1,r,1)
+        else:
+            print("Sound: " + name + "doesn't exist")
+        return
+    #Music
+    def load_music(self,name,file_name):
+        #Need to change to SDL
+        self.assets.append(Mix_LoadMUS("assets/" + file_name))
+        index = len(self.assets)-1
+        self.sounds[name]=index
+        return index
+
+    def get_music(self,name):
+        r = self.sounds.get(name)
+        if r:
+            return self.assets[r]
+        print("Sound: " + name + "doesn't exist")
+        return
+
+    def music_index(self,name):
+        return self.sounds.get(name)    #will return Null if doesn't exist. Address out of range issue will usually occur
+
+    def remove_music(self,name):
+        self.assets.pop(self.sounds.get(name))
+        self.sounds.pop(name)
+        return
+
+    def play_music(self,name):
+        r = self.sounds.get(name)
+        if r:
+            Mix_PlayMusic(r,1)
+        else:
+            print("Sound: " + name + "doesn't exist")
+        return
+    
+    def pause_music(self):
+        Mix_PauseMusic()
+        return
+    def resume_music(self):
+        Mix_ResumeMusic()
+        return
+    def rewind_music(self):
+        Mix_RewindMusic()
+        return
+    def halt_music(self):
+        Mix_HaltMusic()
+        return
+    
 
     

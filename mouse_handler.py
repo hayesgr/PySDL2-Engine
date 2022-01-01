@@ -1,4 +1,4 @@
-import sdl2
+from sdl2 import *
 from ctypes import *
 
 class Mouse_Handler:
@@ -19,7 +19,7 @@ class Mouse_Handler:
         self.old_x,self.old_y = self.x,self.y
         x = c_int()
         y = c_int()
-        sdl2.SDL_GetMouseState(x,y)
+        SDL_GetMouseState(x,y)
         self.x = x
         self.y = y
         return

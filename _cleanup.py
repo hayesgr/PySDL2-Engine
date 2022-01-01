@@ -1,6 +1,12 @@
-import sdl2
+from sdl2 import *
+import sdl2.ext
+from sdl2.sdlmixer import *
+from sdl2.surface import *
+from sdl2.sdlimage import *
+
 
 def cleanup(self):
-    sdl2.SDL_DestroyRenderer(self.renderer)
-    sdl2.SDL_DestroyWindow(self.window)
+    Mix_CloseAudio()
+    SDL_DestroyRenderer(self.renderer)
+    SDL_DestroyWindow(self.window)
     return

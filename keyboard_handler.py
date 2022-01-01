@@ -1,4 +1,3 @@
-import sdl2
 
 class Keyboard_Handler:
     

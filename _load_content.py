@@ -1,4 +1,9 @@
-import sdl2
+from sdl2 import *
+import sdl2.ext
+from sdl2.sdlmixer import *
+from sdl2.surface import *
+from sdl2.sdlimage import *
+
 import random
 import _balls
 
