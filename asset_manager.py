@@ -19,6 +19,25 @@ class Texture:
         SDL_DestroyTexture(self.image)
         return
 
+class Sound:
+    def __init__(self,sound=None):
+        self.sound = sound
+        return
+    def cleanup(self):
+        Mix_HaltChannel(-1) #makes sure no sound is being played
+        Mix_FreeChunk(self.sound)
+        return
+
+class Music:
+    def __init__(self,music=None):
+        self.music = music
+        return
+    def cleanup(self):
+        Mix_HaltMusic() #makes sure music is stopped
+        Mix_FreeMusic(self.music)
+        return
+
+
 class Asset_Manager:
     def __init__(self,renderer):
         self.assets = []
@@ -30,7 +49,8 @@ class Asset_Manager:
         return
 
     def cleanup(self):
-
+        for x in self.assets:
+            x.cleanup()
         return
 
     #images
@@ -85,6 +105,7 @@ class Asset_Manager:
         return self.sounds.get(name)    #will return Null if doesn't exist. Address out of range issue will usually occur
 
     def remove_sound(self,name):
+        self.assets[self.sounds.get(name)].cleanup()    #should not be called while any sound is playing.
         self.assets.pop(self.sounds.get(name))
         self.sounds.pop(name)
         return
@@ -101,26 +122,27 @@ class Asset_Manager:
         #Need to change to SDL
         self.assets.append(Mix_LoadMUS("assets/" + file_name))
         index = len(self.assets)-1
-        self.sounds[name]=index
+        self.music[name]=index
         return index
 
     def get_music(self,name):
-        r = self.sounds.get(name)
+        r = self.music.get(name)
         if r:
             return self.assets[r]
         print("Sound: " + name + "doesn't exist")
         return
 
     def music_index(self,name):
-        return self.sounds.get(name)    #will return Null if doesn't exist. Address out of range issue will usually occur
+        return self.music.get(name)    #will return Null if doesn't exist. Address out of range issue will usually occur
 
     def remove_music(self,name):
-        self.assets.pop(self.sounds.get(name))
+        self.assets[self.music.get(name)].cleanup()
+        self.assets.pop(self.music.get(name))
         self.sounds.pop(name)
         return
 
     def play_music(self,name):
-        r = self.sounds.get(name)
+        r = self.music.get(name)
         if r:
             Mix_PlayMusic(r,1)
         else:
