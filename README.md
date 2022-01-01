@@ -20,3 +20,9 @@ There is an asset manager built in. The demo shows how it is used in place of st
 
 There is a proper game timer built in that does not use pysdl2s. The timer has microsecond time. Example use of it is in the demo for updating the ball movement.
 
+Note:
+I started this after being disappointed with pygames performance.
+That was about Dec. 25th 2021 Most of the work on this was completed around Dec 29th, 2021
+
+A funny fact. I had about 5 hours total experience with python at the start of the first conversion.
+Most of the time since then was spent reading documentation, doing searches and so on.
