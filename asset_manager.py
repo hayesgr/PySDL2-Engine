@@ -88,7 +88,6 @@ class Asset_Manager:
     
     #sounds
     def load_sound(self,name,file_name):
-        #Need to change to SDL
         self.assets.append(Mix_LoadWAV("assets/" + file_name))
         index = len(self.assets)-1
         self.sounds[name]=index
@@ -104,8 +103,8 @@ class Asset_Manager:
     def sound_index(self,name):
         return self.sounds.get(name)    #will return Null if doesn't exist. Address out of range issue will usually occur
 
-    def remove_sound(self,name):
-        self.assets[self.sounds.get(name)].cleanup()    #should not be called while any sound is playing.
+    def remove_sound(self,name):                #should not be called while any sound is playing.
+        self.assets[self.sounds.get(name)].cleanup()    
         self.assets.pop(self.sounds.get(name))
         self.sounds.pop(name)
         return
@@ -119,7 +118,6 @@ class Asset_Manager:
         return
     #Music
     def load_music(self,name,file_name):
-        #Need to change to SDL
         self.assets.append(Mix_LoadMUS("assets/" + file_name))
         index = len(self.assets)-1
         self.music[name]=index
@@ -135,7 +133,7 @@ class Asset_Manager:
     def music_index(self,name):
         return self.music.get(name)    #will return Null if doesn't exist. Address out of range issue will usually occur
 
-    def remove_music(self,name):
+    def remove_music(self,name):                #should not be called while any music is playing.
         self.assets[self.music.get(name)].cleanup()
         self.assets.pop(self.music.get(name))
         self.sounds.pop(name)
