@@ -8,9 +8,7 @@ The engine is a work in progress. The engine is being modeled after my C++ Engin
 I first tried converting using pygame. Pygame is less than 1/3rd the performance of pySDL2. That is because you don't have access to hardware exceleration and textures.
 SDL2 textures are different from SDL surfaces in that they are buffered objects. See SDL2 documentation on that.
 
-Pygame has better support for playing movies, and sound files. Less so for storing music your option there is play it from source.
-Not sure why they didn't do movies the same way if they really were just trying to conserve memory as the documentation suggests.
-pySDL2 documentation is lacking when it comes to mixer/audio and there isn't any direct support for movies.
+I plan to add in movie support using ffmpeg in the near future.
 
 The state system means avoiding large number of if else statements that kill performance.
 
