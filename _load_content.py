@@ -18,6 +18,10 @@ def load_content(self):
     self.AM.load_image("pCircle","CircleP.png")
     self.bg = self.AM.load_image("title","title.png")
     self.AM.load_image("black","black.png")
+    #self.AM.load_sound("t_sound","test.wav")
+    #self.AM.play_sound("t_sound")
+    #self.AM.load_music("t_music","test.mp3")
+    #self.AM.play_music("t_music")
     
     random.seed(100)
     ball_count = 3200

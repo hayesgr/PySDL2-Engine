@@ -88,7 +88,9 @@ class Asset_Manager:
     
     #sounds
     def load_sound(self,name,file_name):
-        self.assets.append(Mix_LoadWAV("assets/" + file_name))
+        fn = "assets/" + file_name
+        snd = Sound(Mix_LoadWAV(fn.encode()))
+        self.assets.append(snd)
         index = len(self.assets)-1
         self.sounds[name]=index
         return index
@@ -112,13 +114,15 @@ class Asset_Manager:
     def play_sound(self,name):
         r = self.sounds.get(name)
         if r:
-            Mix_PlayChannel(-1,r,1)
+            Mix_PlayChannel(-1,self.assets[r].sound,1)
         else:
             print("Sound: " + name + "doesn't exist")
         return
     #Music
     def load_music(self,name,file_name):
-        self.assets.append(Mix_LoadMUS("assets/" + file_name))
+        fn = "assets/" + file_name
+        ms = Music(Mix_LoadMUS(fn.encode()))
+        self.assets.append(ms)
         index = len(self.assets)-1
         self.music[name]=index
         return index
@@ -142,7 +146,7 @@ class Asset_Manager:
     def play_music(self,name):
         r = self.music.get(name)
         if r:
-            Mix_PlayMusic(r,1)
+            Mix_PlayMusic(self.assets[r].music,1)
         else:
             print("Sound: " + name + "doesn't exist")
         return
