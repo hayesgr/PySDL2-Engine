@@ -1,4 +1,6 @@
 This is a game Engine built around pySDL2
+Python 3.10.1 or above is required.
+You will need to install pysdl2, pysdl2.dll
 
 You will need to install pysdl2 to make use of the engine as it is. See pysdl2s documentation on that for your system
 
