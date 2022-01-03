@@ -33,7 +33,6 @@ def event_handler(self):
                     gui_resize(self)
 
             case SDL_Events.SDL_KEYDOWN.value:
-                print("Key Down")
                 self.kbh.set_state(self.event.key.keysym.sym,1)
 
             case SDL_Events.SDL_KEYUP.value:
