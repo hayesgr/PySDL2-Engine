@@ -3,6 +3,7 @@ import sdl2.ext
 from sdl2.sdlmixer import *
 from sdl2.surface import *
 from sdl2.sdlimage import *
+from Game_State import *
 
 import random
 import _balls
@@ -35,5 +36,5 @@ def load_content(self):
         self.balls.append(b)
 
     self.gt.set_timer()
-    self.game_state = "intro"
+    self.game_state = Game_State.INTRO
     return

@@ -15,14 +15,15 @@ from keyboard_handler import Keyboard_Handler
 from mouse_handler import Mouse_Handler
 from asset_manager import Asset_Manager
 from _profile import profile
-PROFILE = False          #Set to true to profile game, false to not profile game
+from Game_State import *
+PROFILE = True       #Set to true to profile game, false to not profile game
 TITLE = "Game Engine"
 
 
 class Game:
     def __init__(self,width,height,title):
         self.title = title.encode()
-        self.game_state = "intro"
+        self.game_state = Game_State.INTRO
         self.full_screen = 0
         self.screen_w = 1920    #Monitor width
         self.screen_h = 1080    #Monitor height
@@ -43,8 +44,8 @@ class Game:
         
         #Audio
         Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,4096)
-        self.volume = 100
-        Mix_VolumeMusic(128)
+        self.volume = 100 #128 is max
+        Mix_VolumeMusic(self.volume)
 
         #Components
         self.gt = Timer()       #game timer
